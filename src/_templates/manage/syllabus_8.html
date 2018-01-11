@@ -1,0 +1,60 @@
+{% extends "manage/syllabus.html" %}
+{% from "macros.html" import monthday_fields %}
+
+{% set calendar = syllabus.calendar %}
+
+{% block inner_content %}	
+	<div style="width:100%; margin-bottom:20px;">
+		<input type="text" name="notes" value="{{ calendar.notes }}" style="width:98%" placeholder="Calendar notes - these will be visible above the generated calendar." />
+	</div>
+	
+	<table style="width:100%; margin-bottom:12px;"><tr>
+		<td width="40%">
+			<div class="fill-field"><label>Start:</label><span>
+				{{ monthday_fields("start", calendar.start.month, calendar.start.day, 45) }}
+			</span></div>
+		</td>
+		<td width="40%">
+			<div class="fill-field"><label>End:</label><span>
+				{{ monthday_fields("end", calendar.end.month, calendar.end.day, 45) }}
+			</span></div>
+		</td>
+		<td>
+			<input type="radio" name="weekly" value="true" {% if calendar.weekly %}checked="checked" {% endif %}/>Weekly
+			<input type="radio" name="weekly" value="false" {% if not calendar.weekly %}checked="checked" {% endif %}/>Daily
+		</td>
+	</tr></table>
+	
+	<table style="width:100%; text-align:center; margin-bottom:12px;" class="alt-even">
+	    <tr>
+	        <th> Date </td>
+	        <th width="44%"> Readings </td>
+	        <th width="44%"> Topics </td>
+	    </tr>
+	    {% for cent in calendar.entries %}
+	    <tr>
+	        <td>
+	        	{% if not cent.active %}
+	        		<span style="color:red">Inactive</span>
+	        	{% elif not calendar.weekly or not prev is defined or cent.day.isocalendar()[1] != prev.day.isocalendar()[1] %}
+		        	{{ cent.day.month }}/{{ cent.day.day }}
+		        {% endif %}
+	        </td>
+	        <td> <input type="text" name="reading{{ loop.index }}" value="{{ cent.reading }}" style="width:95%" /></td>
+	        <td> <input type="text" name="topic{{ loop.index }}" value="{{ cent.topic }}" style="width:95%" /></td>
+	    </tr>
+	    {% set prev = cent %}
+	    {% endfor %}
+	</table>
+	
+	<table style="width:100%"><tr>
+		<td width="40%">
+			<div class="fill-field"><label>Final Exam:</label><span>
+				{{ monthday_fields("final", calendar.final.month, calendar.final.day, 45) }}
+			</span></div>
+		</td>
+		<td style="text-align:center">
+			<input type="text" name="descfinal" value="{{ calendar.final_desc }}" style="width:95%" placeholder='Description of final exam, eg. "Final Exam - 7:30-9:30am"' />
+		</td>
+	</tr></table>
+{% endblock %}

@@ -1,0 +1,54 @@
+{% extends "manage.html" %}
+
+{% block title %}Profile{% endblock %}
+
+{% block content %}
+	<form action="" method="post">
+	<h2>Office Details - {{ instructor.name }} - {{ term_name }}</h2>
+	
+	<table style="width:100%; margin-bottom: 20px;"><tr>
+		<td width="50%">
+			<div class="fill-field"><label>Room:</label><span><input type="text" name="room" value="{{ office.room }}" placeholder="Location of office."/></span></div>
+		</td>
+		<td>
+			<div class="fill-field"><label>Phone:</label><span><input type="text" name="phone" value="{{ office.phone }}" placeholder="Phone number for office."/></span></div>
+		</td>
+	</tr></table>
+	
+	{% for t in office.times %}
+	<div style="width:30%; float:left; clear:both; overflow:hidden;">
+		<div class="fill-field"><label>Weekday:</label><span>
+			<select name="day{{ loop.index }}">
+			{% for wd in weekdays %}
+				<option value="{{ loop.index-1 }}"{% if t.weekday == loop.index-1 %} selected="true"{% endif %}>{{ wd }}</option>
+			{% endfor %}
+			</select>
+		</span></div>
+	</div>
+	
+	<div style="width:30%; float:left; overflow:hidden;">
+		<label>Start:</label><span>
+			<input type="number" name="starth{{ loop.index }}" min="0" max="12" maxlength="2" value="{{ t.get_start_hour_12h() }}" size="2"> :
+			<input type="number" name="startm{{ loop.index }}" min="0" max="59" maxlength="2" value="{{ t.get_start_min() }}" size="3">
+			<input type="checkbox" name="startp{{ loop.index }}" value="y"{% if t.get_start_pm() %} checked{% endif %}> PM
+		</span>
+	</div>
+	
+	<div style="width:30%; float:left; overflow:hidden;">
+		<label>Duration:</label><span>
+			<input type="number" name="durh{{ loop.index }}" min="0" max="24" maxlength="2" value="{{ t.get_dur_hour() }}" size="2"> :
+			<input type="number" name="durm{{ loop.index }}" min="0" max="59" maxlength="2" value="{{ t.get_dur_min() }}" size="3">
+		</span>
+	</div>
+	
+	<div style="width:8%; float:left; overflow:hidden;">
+		<button type="submit" formaction="" style="width:100%" name="action" value="{{ loop.index-1 }}">Delete</button>
+	</div>
+	{% endfor %}
+	
+	<div style="clear:both; text-align: right; padding-top: 20px;">
+		<button type="submit" name="action" value="new">Add New</button>
+		<button type="submit" name="action" value="">Apply</button>
+		<button type="submit" name="action" value="return">Save &amp; Return</button>
+	</div>
+{% endblock %}

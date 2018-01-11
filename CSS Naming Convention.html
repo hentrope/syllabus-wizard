@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+	<meta charset="UTF-8">
+	<title>Syllabus Wizard CSS Documentation</title>
+	<style>
+		body {
+			width: 860px;
+			margin: auto;
+			padding: 5px 0px;
+		}
+		table {
+			width: 100%;
+			border-collapse: collapse;
+			border: 2px solid black;
+		}
+		th {
+			font-weight: bold;
+			text-align: left;
+			font-family: monospace;
+		}
+		#heading th {
+			text-align: center;
+			background-color: black;
+			color: white;
+			font-family: initial;
+		}
+		th, td {
+			border: 1px solid black;
+			padding: 4px 6px;
+		}
+		tr:nth-child(odd) {
+			background-color: #F0F0F0;
+		}
+		td[colspan] {
+			background-color: #D8D8D8;
+		}
+		.kw {
+			font-family: monospace;
+			color: #0000B0;
+		}
+		.sep {
+			border-top: 3px solid black;
+		}
+	</style>
+</head>
+<body>
+<table>
+	<tr id="heading">
+		<th width="20%">Selector</th>
+		<th>Selection Description</th>
+	</tr><tr>
+		<td colspan="2">The syllabus page uses a <span class="kw">div</span> with the id <span class="kw">wrapper</span> to wrap all of the contents of the syllabus.
+			This allows the instructor to control the layout of the syllabus contents itself while also being able to modify the page's background seperately.
+			<br/>Inside of the wrapper, the syllabus is broken down into multiple different sections. Each section is contained in either a
+			<span class="kw">div</span> or <span class="kw">table</span> element, and no section is contained within any other section. They appear in the following order:
+			<span class="kw">contact</span>, <span class="kw">textbook</span>, <span class="kw">assessment</span>, <span class="kw">grading</span>, <span class="kw">policies</span>, <span class="kw">calendar</span> and <span class="kw">footer</span>.</td>
+	</tr><tr>
+		<th>body</th>
+		<td>The entire page, including the blank space behind the wrapper.</td>
+	</tr><tr>
+		<th>#wrapper</th>
+		<td>A <span class="kw">div</span> that wraps all of the contents of the page.
+			<br/>All content and selectors listed below are contained within the wrapper.</td>
+	</tr><tr class="sep">
+		<td colspan="2">Inside of the <span class="kw">wrapper</span>, the <span class="kw">h1</span> tag is used to specify the title of the syllabus,
+			and the <span class="kw">h2</span> tag is used to specify the subheading for each section.<br/>
+			The <span class="kw">h1</span> tag contains multiple spans to select specific parts of the title, described below.</td>
+	</tr><tr>
+		<th>h1</th>
+		<td>The entire syllabus title line.</td>
+	</tr><tr>
+		<th>h1 .id</th>
+		<td>The <span class="kw">span</span> that contains the course id (department + number) within the syllabus title.</td>
+	</tr><tr>
+		<th>h1 .title</th>
+		<td>The <span class="kw">span</span> that contains the descriptive title of the course within the syllabus title.</td>
+	</tr><tr>
+		<th>h1 .term</th>
+		<td>The <span class="kw">span</span> that contains the term of the course (semester + year) displayed within the syllabus title.</td>
+	</tr><tr>
+		<th>h2</th>
+		<td>All of the syllabus' section subheadings.
+		<br/>Selectors for specific subheadings are listed alongside the rest of a section's selectors where applicable.
+			If a given section does not describe an <span class="kw">h2</span> selector, then it does not contain a subheading.</td>
+	</tr><tr class="sep">
+		<td colspan="2">The <span class="kw">contact</span> section of the syllabus is displayed in a <span class="kw">table</span>,
+			with each row of the table displaying information for a different instructor/teacher assistant,
+			and different columns ("Instructor", "Class", "Office") seperating that information into seperate categories.</td>
+	</tr><tr>
+		<th>#contact</th>
+		<td>The <span class="kw">table</span> containing contact and class information for the instructor and teacher assistants.</td>
+	</tr><tr>
+		<th>#contact th</th>
+		<td>The row of cells containing column headings ("Instructor", "Class", "Office").</td>
+	</tr><tr>
+		<th>#contact .instructor</th>
+		<td>A cell in the first column of the contacts table, contains instructor names and emails.</td>
+	</tr><tr>
+		<th>#contact .instructor .name</th>
+		<td>A <span class="kw">div</span> that contains the name of an instructor or teacher assistant.</td>
+	</tr><tr>
+		<th>#contact .instructor .email</th>
+		<td>A <span class="kw">div</span> that contains the email address of an instructor or teacher assistant.</td>
+	</tr><tr>
+		<th>#contact .class</th>
+		<td>A cell in the second column of the contacts table, contains class information.</td>
+	</tr><tr>
+		<th>#contact .class .id</th>
+		<td>A <span class="kw">span</span> that contains the id of the instructor's class.</td>
+	</tr><tr>
+		<th>#contact .class .room</th>
+		<td>A <span class="kw">span</span> that contains the room of the instructor's class.</td>
+	</tr><tr>
+		<th>#contact .class .time</th>
+		<td>A <span class="kw">span</span> that contains the time of the instructor's class.</td>
+	</tr><tr>
+		<th>#contact .office</th>
+		<td>A cell in the third column of the contacts table, contains office information.</td>
+	</tr><tr>
+		<th>#contact .office .room</th>
+		<td>A <span class="kw">span</span> that contains the room of the instructor's office.</td>
+	</tr><tr>
+		<th>#contact .office .phone</th>
+		<td>A <span class="kw">span</span> that contains the phone of the instructor's office.</td>
+	</tr><tr>
+		<th>#contact .office .time</th>
+		<td>A <span class="kw">span</span> that contains the time of the instructor's office.</td>
+	</tr><tr class="sep">
+		<td colspan="2">The <span class="kw">textbook</span> section of the syllabus is displayed as a single <span class="kw">div</span> element.
+			The textbook <span class="kw">div</span> contains multiple different <span class="kw">div</span> elements,
+			each providing information for a seperate textbook. Each <span class="kw">div</span> is broken down into smaller <span class="kw">span</span> elements
+			in order to select more specific information about a textbook.</td>
+	</tr><tr>
+		<th>#textbook</th>
+		<td>The <span class="kw">div</span> section containing the list of all textbooks for the course.</td>
+	</tr><tr>
+		<th>#textbook h2</th>
+		<td>The subheading for the textbook section.</td>
+	</tr><tr>
+		<th>#textbook div</th>
+		<td>A line containing all of the information about a textbook, contained within a <span class="kw">div</span>.</td>
+	</tr><tr>
+		<th>#textbook .title</th>
+		<td>A <span class="kw">span</span> that contains the title of a textbook.</td>
+	</tr><tr>
+		<th>#textbook .edition</th>
+		<td>A <span class="kw">span</span> that contains the edition of a textbook.</td>
+	</tr><tr>
+		<th>#textbook .author</th>
+		<td>A <span class="kw">span</span> that contains the author of a textbook.</td>
+	</tr><tr>
+		<th>#textbook .publisher</th>
+		<td>A <span class="kw">span</span> that contains the publisher of a textbook.</td>
+	</tr><tr>
+		<th>#textbook .year</th>
+		<td>A <span class="kw">span</span> that contains the year of a textbook.</td>
+	</tr><tr>
+		<th>#textbook .isbn</th>
+		<td>A <span class="kw">span</span> that contains the isbn of a textbook (number only, no label).</td>
+	</tr><tr class="sep">
+		<td colspan="2">The <span class="kw">assessment</span> section of the syllabus is displayed as a single <span class="kw">div</span> element.
+			Directly within the <span class="kw">div</span> is the section subheading and a <span class="kw">table</span> which displays all of the section's content.		
+			The first column displays each assessment's name and percentage,
+			and the second column displays an in-depth description of the assessment category.
+			Each row of the table displays information for a different category of assessment.</td>
+	</tr><tr>
+		<th>#assessment</th>
+		<td>Both the heading above the <span class="kw">table</span>, as well as the table that displays the assessments.
+			<br/>Since this section is unique in that it contains both a heading and a table, this does not select the table itself.</td>
+	</tr><tr>
+		<th>#assessment h2</th>
+		<td>The subheading for the assessment section.</td>
+	</tr><tr>
+		<th>#assessment table</th>
+		<td>The <span class="kw">table</span> containing the different assessment categories.</td>
+	</tr><tr>
+		<th>#assessment .title</th>
+		<td>A cell in the first column of the assessments table, contains name and percentage.</td>
+	</tr><tr>
+		<th>#assessment .title .name</th>
+		<td>A <span class="kw">div</span> that contains the name of an assessment.</td>
+	</tr><tr>
+		<th>#assessment .title .percentage</th>
+		<td>A <span class="kw">div</span> that contains the percentage of an assessment.</td>
+	</tr><tr>
+		<th>#assessment .description</th>
+		<td>A cell in the second column of the assessments table, contains the description of an assessment.</td>
+	</tr><tr class="sep">
+		<td colspan="2">The <span class="kw">grading</span> section of the syllabus is displayed as a <span class="kw">table</span>
+			with a single row, but multiple columns. Each column/cell contains a name and a percentage.</td>
+	</tr><tr>
+		<th>#grading</th>
+		<td>The <span class="kw">table</span> containing all grade names and percentages, listed in a single row.</td>
+	</tr><tr>
+		<th>#grading td</th>
+		<td>The cell that contains each individual grade.</td>
+	</tr><tr>
+		<th>#grading .name</th>
+		<td>A <span class="kw">div</span> that contains the name of a grade.</td>
+	</tr><tr>
+		<th>#grading .percentage</th>
+		<td>A <span class="kw">div</span> that contains the percentage of a grade.</td>
+	</tr><tr class="sep">
+		<td colspan="2">The <span class="kw">policies</span> section of the syllabus is displayed as a single <span class="kw">div</span> element.
+			This single <span class="kw">div</span> contains multiple different <span class="kw">div</span> elements,
+			each displaying both a subheading and description for each individual policy.</td>
+	</tr><tr>
+		<th>#policies</th>
+		<td>The <span class="kw">div</span> section containing all policies for the course.</td>
+	</tr><tr>
+		<th>#policies .policy</th>
+		<td>A <span class="kw">div</span> element located inside of policies that displays both
+			the subheading and description of a single policy.</td>
+	</tr><tr>
+		<th>#policies h2</th>
+		<td>The subheading for an individual policy.</td>
+	</tr><tr>
+		<th>#policies .description</th>
+		<td>A <span class="kw">div</span> that contains the description of a policy.</td>
+	</tr><tr class="sep">
+		<td colspan="2">The <span class="kw">calendar</span> section of the syllabus is displayed in a <span class="kw">table</span> (inside of a <span class="kw">div</span>),
+			with the first column displaying each calendar entry's date,
+			the second column displaying any reading for that date, and the third column displaying topics covered on that date.
+			Each row of the table displays a seperate date with seperate reading and topics.
+			<br/>Contained within the <span class="kw">div</span>, but outside of the <span class="kw">table</span> itself,
+			are notes that can provide additional notes or information about what is displayed inside of the table.</td>
+	</tr><tr>
+		<th>#calendar</th>
+		<td>The <span class="kw">div</span> containing the <span class="kw">table</span> of course reading and subjects ordered by a corresponding date.</td>
+	</tr><tr>
+		<th>#calendar .notes</th>
+		<td>Any notes to be displayed above the calendar.</td>
+	</tr><tr>
+		<th>#calendar th</th>
+		<td>The row of cells containing column headings ("Week of", "Reading", "Topics").</td>
+	</tr><tr>
+		<th>#calendar .date</th>
+		<td>A cell in the first column of the calendar table, contains calendar dates.</td>
+	</tr><tr>
+		<th>#calendar .reading</th>
+		<td>A cell in the second column of the calendar table, contains reading tasks.</td>
+	</tr><tr>
+		<th>#calendar .topic</th>
+		<td>A cell in the third column of the calendar table, contains course topics.</td>
+	</tr><tr class="sep">
+		<td colspan="2">The <span class="kw">footer</span> section of the syllabus is displayed as a single <span class="kw">div</span> element
+			located at the bottom of the syllabus. The footer contains a link back to the calendar/list of the instructor's courses for that semester.</td>
+	</tr><tr>
+		<th>#return</th>
+		<td>The <span class="kw">div</span> containing information displayed in the footer of the syllabus.</td>
+	</tr>
+</table>
+</body>
+</html>

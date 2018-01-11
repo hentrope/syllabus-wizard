@@ -1,0 +1,31 @@
+{% extends "manage/syllabus.html" %}
+
+{% block body %}
+	{{ super() }}
+
+	<style>
+		.aligner td {
+			padding
+		}
+	</style>
+{% endblock %}
+
+{% block inner_content %}
+	{% for t in syllabus.textbooks %}
+	<div class="rborder">
+	<table class="aligner">
+		<tr>
+			<td colspan="2"><input type="text" style="width:100%" name="title{{ loop.index }}" value="{{ t.title }}" placeholder="Title" /></td>
+			<td><input type="text" style="width:100%" name="edition{{ loop.index }}" value="{{ t.edition }}" placeholder="Edition" /></td>
+			<td style="text-align:right"><button type="submit" name="action" value="{{ loop.index }}" tabindex="-1">Delete</button></td>
+		</tr>
+		<tr>
+			<td style="width:25%"><input type="text" style="width:100%" name="author{{ loop.index }}" value="{{ t.author }}" placeholder="Author" /></td>
+			<td style="width:25%"><input type="text" style="width:100%" name="publisher{{ loop.index }}" value="{{ t.publisher }}" placeholder="Publisher" /></td>
+			<td style="width:25%"><input type="number" min="0" style="width:100%" name="year{{ loop.index }}"{% if t.year > 0 %} value="{{ t.year }}"{% endif %} placeholder="Year" /></td>
+			<td style="width:25%"><input type="text" style="width:100%" name="isbn{{ loop.index }}" value="{{ t.isbn }}" placeholder="ISBN" /></td>
+		</tr>
+	</table>
+	</div>
+	{% endfor %}
+{% endblock %}

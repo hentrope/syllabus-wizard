@@ -1,0 +1,48 @@
+{% extends "manage.html" %}
+
+{% block title %}Profile{% endblock %}
+
+{% block content %}
+	<form method="post">
+	<h2>Office Details - {{ username }} - {{ term_name }}</h2>
+	
+	<div style="padding-bottom: 20px; overflow: hidden;">
+		<div class="fill-field"><label>Notes:</label><span><input type="text" name="note" value="{{ meeting_times.note }}" placeholder="office location, phone number, hours, etc."/></span></div>
+	</div>
+	
+	{% for t in meeting_times.times %}
+	<div style="width:30%; float:left; clear:both; overflow:hidden;">
+		<div class="fill-field"><label>Weekday:</label><span>
+			<select name="day{{ loop.index }}">
+			{% for wd in weekdays %}
+				<option value="{{ loop.index-1 }}"{% if t.weekday == loop.index-1 %} selected="true"{% endif %}>{{ wd }}</option>
+			{% endfor %}
+			</select>
+		</span></div>
+	</div>
+	
+	<div style="width:30%; float:left; overflow:hidden;">
+		<label>Start:</label><span>
+			<input type="number" name="starth{{ loop.index }}" min="0" max="12" maxlength="2" value="{{ t.get_start_hour_12h() }}" size="2"> :
+			<input type="number" name="startm{{ loop.index }}" min="0" max="59" maxlength="2" value="{{ t.get_start_min() }}" size="3">
+			<input type="checkbox" name="startp{{ loop.index }}" value="y"{% if t.get_start_pm() %} checked{% endif %}> PM
+		</span>
+	</div>
+	
+	<div style="width:30%; float:left; overflow:hidden;">
+		<label>Duration:</label><span>
+			<input type="number" name="durh{{ loop.index }}" min="0" max="24" maxlength="2" value="{{ t.get_dur_hour() }}" size="2"> :
+			<input type="number" name="durm{{ loop.index }}" min="0" max="59" maxlength="2" value="{{ t.get_dur_min() }}" size="3">
+		</span>
+	</div>
+	
+	<div style="width:8%; float:left; overflow:hidden;">
+		<button type="submit" formaction="" style="width:100%" name="action" value="{{ loop.index-1 }}">Delete</button>
+	</div>
+	{% endfor %}
+	
+	<div style="clear:both; text-align: right; padding-top: 20px;">
+		<button type="submit" formaction="" name="action" value="new">Add New</button>
+		<button type="submit" formaction="" name="action" value="return">Save &amp; Return</button>
+	</div>
+{% endblock %}

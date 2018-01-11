@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head lang="en"><meta charset="UTF-8">
+{% block head %}
+	<title>{% block title %}{% endblock %}</title>
+	<link rel="stylesheet" type="text/css" href="{{ uri_for('static', path='template.css') }}" />
+	<link rel="stylesheet" type="text/css" href="{{ uri_for('static', path='content.css') }} " />
+{% endblock %}
+</head>
+<body>
+{% block body %}
+	<div id="wrapper" class="public">
+		{% if heading|length > 0 %}
+		<div id="header">
+			{{ heading|safe }}
+		</div>
+		{% endif %}
+	
+		<div id="content">
+			{% block content %}{% endblock %}
+		</div>
+	</div>
+{% endblock %}
+</body>
+</html>

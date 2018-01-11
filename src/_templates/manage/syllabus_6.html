@@ -1,0 +1,42 @@
+{% extends "manage/syllabus.html" %}
+
+{% block head %}
+	{{ super() }}
+	
+	<style>
+		.note-text {
+			font-size: 82%;
+			font-weight: normal;
+		}
+		
+		td {
+			text-align: center;
+		}
+		
+		td input {
+			width: 60%;
+		}
+	</style>
+{% endblock %}
+
+{% block inner_content %}
+	<table class="aligner" style="width:30%" align="center">
+		<tr	class="note-text">
+			<td colspan="2">Enter lowest percentage for each grade.</td>
+		</tr>
+		<tr>
+			<th>Letter</th>
+			<th>Grade</th>
+		</tr>
+	{% for gs in gradescale %}
+		<tr>
+			<td width="50%">
+				<input type="text" name="letter{{ loop.index }}" value="{{ gs.letter }}" />
+			</td>
+			<td>
+				<input type="number" name="grademin{{ loop.index }}" value="{{ gs.grademin }}" min="0" max="100" />
+			</td>
+		</tr>
+	{% endfor %}
+	</table>
+{% endblock %}

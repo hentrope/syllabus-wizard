@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head lang="en"><meta charset="UTF-8">
+{% block head %}
+	<title>{% block title %}{% endblock %} - Syllabus Wizard</title>
+	<link rel="stylesheet" type="text/css" href="{{ uri_for('static', path='template.css') }}" />
+	<link rel="stylesheet" type="text/css" href="{{ uri_for('static', path='content.css') }}" />
+{% endblock %}
+</head>
+<body>
+{% block body %}
+	<div id="navbar">
+		<div id="navbar-inner">
+			<div class="title">Syllabus Wizard</div>
+			
+			<div class="session">
+				{% if username %}Logged in as <span class="bold">{{ username }}</span> - <a href="{{ uri_for("logout") }}">Sign Out</a>{% endif %}
+			</div>
+			
+			{% if not username == "admin" %}
+			<div class="links">
+				<a href="{{ uri_for("manage-home") }}" class="button">Home</a>
+				<a href="{{ uri_for("manage-profile") }}" class="button">Profile</a>
+				<a href="{{ uri_for("manage-instructor") }}" class="button">Instructors</a>
+			</div>
+			{% endif %}
+		</div>
+	</div>
+
+	<div id="wrapper">
+		<div id="content">
+			{% block content %}{% endblock %}
+		</div>
+		
+		<div id="footer">&copy;2015 Team Name</div>
+	</div>
+{% endblock %}
+</body>
+</html>

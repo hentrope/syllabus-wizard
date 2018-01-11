@@ -1,0 +1,40 @@
+{% extends "manage.html" %}
+
+{% block title %}Log In{% endblock %}
+
+{% block head %}
+	{{ super() }}
+	<style>
+		#centerbox {
+			width: 240px;
+			text-align: center;
+		}
+		#centerbox div {
+			margin: 8px;
+		}
+		.field {
+			width: 85%;
+		}
+		.error {
+			color: #FF8080;
+			font-weight: bold;
+		}
+	</style>
+{% endblock %}
+
+{% block body %}
+	<div id="centerbox">
+	<form action="" method="post">
+		<div><input class="field" type="text" name="user" placeholder="Username" /></div>
+		<div><input class="field" type="password" name="pass" placeholder="Password" /></div>
+		{% if error|length > 0 %}<div class="error">{{ error }}</div>{% endif %}
+		<div><input type="submit" value="Log In" /></div>
+	</form>
+	
+	<div style="background:white; color:black; margin:0; padding:0">
+		<div style="font-size:13px; margin:0">Admin account for demonstration purposes:</div>
+		<div style="font-size:14px; margin:0">Username = <code>admin</code><br>Password = <code>password</code></div>
+		<div style="font-size:11.5px; margin:0">Feel free to make a throwaway account. You need a different account to see the rest of the app.</div>
+	</div>
+	</div>
+{% endblock %}

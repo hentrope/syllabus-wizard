@@ -1,0 +1,92 @@
+#wrapper {
+	width: 721px;
+	margin: auto;
+}
+
+h1, h2 {
+	font-weight: bold;
+	font-family: Arial;
+	margin-bottom: 0px;
+}
+
+h1 {
+	font-size: 150%;
+}
+
+h2 {
+	font-size: 100%;
+}
+
+table {
+	width: 100%;
+	border-collapse: collapse;
+}
+
+td {
+	padding: 2px 6px;
+}
+
+th {
+	text-align: left;
+}
+
+#contact td, #assessment td, #calendar td, #calendar th {
+	border: 1px solid black;
+}
+
+#contact {
+	margin-top: 8px;
+	font-size: 94%;
+}
+
+#contact .instructor {
+	width: 28%;
+}
+
+#contact .office {
+	width: 32%;
+}
+
+#contact .instructor .email {
+	font-family: monospace;
+}
+
+#contact .office .phone {
+	font-size: 90%;
+}
+
+#textbook div {
+	font-size: 94%;
+}
+
+#textbook .title {
+	font-style: italic;
+}
+
+#grading {
+	text-align: center;
+	font-weight: bold;
+	font-family: Arial;
+}
+
+#assessment .title {
+	width: 14%;
+}
+
+#calendar {
+	font-size: 75%;
+	margin-top: 20px;
+}
+
+#calendar .date {
+	width: 9%;
+}
+
+#calendar .reading {
+	width: 14%;
+}
+
+#return {
+	margin-top: 10px;
+	font-size: 85%;
+}

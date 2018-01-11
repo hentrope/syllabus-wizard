@@ -1,0 +1,34 @@
+{% extends "manage.html" %}
+{% from "macros.html" import semyear_fields %}
+
+{% block title %}Instructors{% endblock %}
+
+{% block content %}
+	<form action="" method="post">
+	<h2>Instructors</h2>
+	
+	{% for iid, instructor in instructors.iteritems() %}
+	<div class="rborder">
+		<table width="100%">
+			<tr>
+				<td width="15%"><label>Full Name:</label></td>
+				<td width="35%"><input type="text" style="width:98%" name="name-{{ iid }}" value="{{ instructor.name }}" /></td>
+				<td></td>
+				<td width="15%" style="text-align:right"><button type="submit" name="action" value="del-{{ iid }}" tabindex="-1">Delete</button></td>
+			</tr>
+			<tr>
+				<td><label>Email Address:</label></td>
+				<td><input type="email" style="width:98%" name="email-{{ iid }}" value="{{ instructor.email }}" /></td>
+				<td style="text-align:right">{{ semyear_fields("-" + iid, size=40) }}</td>
+				<td><button type="submit" style="width:100%" name="action" value="off-{{ iid }}">Edit Office</button></td>
+			</tr>
+		</table>
+	</div>
+	{% endfor %}
+	
+	<div style="clear: both; text-align: right; padding-top: 20px;">
+		<button type="submit" name="action" value="new">Add New</button>
+		<button type="submit">Update</button>
+	</div>
+	</form>
+{% endblock %}

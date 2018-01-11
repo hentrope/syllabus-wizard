@@ -1,0 +1,49 @@
+{% extends "manage.html" %}
+
+{% block title %}Course List{% endblock %}
+
+{% block head %}
+	{{ super() }}
+	<style>
+		th, td {
+			text-align: left;
+			padding: 2px 6px;
+		}
+		
+		td img {
+			margin-bottom: -2px;
+			margin-right: 4px;
+		}
+	</style>
+{% endblock %}
+
+{% block content %}
+	<h2>Syllabus List</h2> 
+	<table width="100%" class="alt-even">
+		<tr>
+			<th style="width:15%">Term</th>
+			<th style="width:15%">Name</th>
+			<th>Course Title</th>
+			<th style="width:15%">Options</th>
+		</tr>
+		{% for syllabus in syllabi %}<tr>
+			<td>{{ syllabus.term_string }}</td>
+			<td>{{ syllabus.name }}</td>
+			<td>{{ syllabus.extended_name }}</td>
+			<td>
+				<a href="{{ uri_for("edit-syllabus", term=syllabus.term, name=syllabus.name, step=syllabus.currstep) }}">
+					<img src="{{ uri_for("static", path="edit.png") }}" alt="Edit" title="Edit" /></a>
+				<a href="{{ uri_for("duplicate-syllabus", fterm=syllabus.term, fname=syllabus.name) }}">
+					<img src="{{ uri_for("static", path="copy.png") }}" alt="Duplicate" title="Duplicate" /></a>
+				<a href="{{ uri_for("delete-syllabus", term=syllabus.term, name=syllabus.name) }}">
+					<img src="{{ uri_for("static", path="delete.png") }}" alt="Delete" title="Delete" /></a>
+				{% if syllabus.active %}<a href="{{ uri_for("public-view", instructor=syllabus.owner.name, term=syllabus.term, name=syllabus.name) }}">
+					<img src="{{ uri_for("static", path="view.png") }}" alt="View" title="View" /></a>{% endif %}
+			</td>
+		</tr>
+		{% endfor %}
+	</table>
+	<div style="text-align:right; margin-top:10px;">
+		<form><button type="submit" formaction="{{ uri_for("create-syllabus") }}" formmethod="get">New</button></form>
+	</div>
+{% endblock %}

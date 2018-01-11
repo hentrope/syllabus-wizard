@@ -1,0 +1,25 @@
+{% extends "manage/syllabus.html" %}
+
+{% block inner_content %}
+	{% set total = assessments|sum(attribute="perc") %}
+	{% if total != 100 %}<div style="text-align:center; color:#E00000; margin-bottom: 8px;">Warning: Invalid total percentage (currently {{ total }}%).</div>{% endif %}
+	
+	{% for a in assessments %}
+	<div class="rborder">
+	<table width="100%" align="center">
+		<tr>
+			<td style="width:60%">
+				<input type="text" size="40" name="name{{ loop.index }}" value="{{ a.name }}" placeholder="Title" />
+				<input type="text" size="12" maxlength="3" style="margin-left:20px" name="perc{{ loop.index }}" value="{{ a.perc }}" placeholder="Weight"  />%
+			</td>
+			<td style="text-align:right">
+				<button type="submit" name="action" value="{{ loop.index }}" tabindex="-1">Delete</button>
+			</td>
+		</tr>
+		<tr><td colspan="2" style="padding-bottom:16px">
+			<textarea rows="4" cols="60" name="desc{{ loop.index }}" placeholder="Assessment contents/description.">{{ a.desc }}</textarea>
+		</td></tr>
+	</table>
+	</div>
+	{% endfor %}
+{% endblock %}

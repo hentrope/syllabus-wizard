@@ -1,0 +1,22 @@
+{% extends "manage.html" %}
+
+{% block title %}Confirm Action{% endblock %}
+
+{% block body %}
+	<div id="centerbox">
+		<form action="" method="post">
+		{% block content %}
+			<input type="hidden" name="id" value="{{ id }}" />
+			<div style="text-align: center;">
+				<div style="background-color: #3043FF; color: #F0F0F0#FF4040; padding:4px; margin-bottom: 4px;">
+					Do you wish to permanently delete the following {{ type }}?<br/>
+					<span style="color:#FF4040">{{ name }}</span><br/>
+					{{ details }}
+				</div>	
+				<input type="submit" name="result" value="Yes" />
+				<input type="submit" name="result" value="No" />
+			</div>
+		{% endblock %}
+		</form>
+	</div>
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends "manage/syllabus.html" %}
+
+{% block inner_content %}
+	<div style="text-align: center">
+		{% if not departments %}
+			<div style="text-align:center; color:#E00000; margin-bottom: 8px;">Unable to load departments for {{ syllabus.term_string }}.</div>
+		{% else %}
+			<input type="hidden" name="selected_dept" value="{{ selected_dept }}" />
+			
+			<table width="100%"><tr>
+				<td width="50%">
+					<select name="department" size="15" style="width:75%">
+					{% for dept, name in departments %}
+						<option value="{{ dept }}"{% if dept == selected_dept %} selected="selected"{% endif %}>{{ name }}</option>
+					{% endfor %}
+					</select>
+					<div style="display:inline-block; width:24%">
+						<button type="submit" style="width:100%" name="refresh_dept" value="true">Refresh List</button><br/>
+						<button type="submit" style="width:100%" name="submit_dept" value="true">Select Department</button>
+					</div>
+				</td>
+				<td>
+				{% if courses %}
+					<select name="course" size="15" style="width:75%">
+					{% for course, name in courses %}
+						<option value="{{ course }}">{% if not course == "" %}{{ course }} - {{ name }}{% endif %}</option>
+					{% endfor %}
+					</select>
+					<div style="display:inline-block; width:24%">
+						<button type="submit" style="width:100%" name="refresh_cour" value="true">Refresh List and Data</button><br/>
+						<button type="submit" style="width:100%" name="submit_cour" value="true">Select Course</button>
+					</div>
+				{% endif %}
+				</td>
+			</tr></table>
+		{% endif %}
+	</div>
+{% endblock %}

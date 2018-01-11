@@ -1,0 +1,23 @@
+{% extends "public.html" %}
+
+{% block title %}View Term{% endblock %}
+
+{% block content %}
+	<table width="100%" class="border-table" id="weekly-table">
+		<tr>
+			<th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th><th>Sat</th><th>Sun</th>
+		</tr>
+		{% for row in calendar %}{% if row|length > 0 %}
+		<tr>
+		{% for n in range(7) %}	<td>{% for day, text, start, end in row %}{% if day == n %}
+				<div style="font-weight:bold">{{ text }}</div>
+				<div style="font-size:85%">{{ start }} - {{ end }}</div>
+			{% endif %}{% endfor %}</td>
+		{% endfor %}</tr>
+		{% endif %}{% endfor %}
+	</table>
+	
+	<ul>
+		{% for s in syllabi %}<li><a href="{{ uri_for("public-view", instructor=s.owner.name, term=s.term, name=s.name) }}">{{ s.extended_name }}</a></li>{% endfor %}
+	</ul>
+{% endblock %}

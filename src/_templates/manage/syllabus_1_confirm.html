@@ -1,0 +1,16 @@
+{% extends "manage/confirm.html" %}
+
+{% block content %}
+	<input type="hidden" name="id" value="{{ id }}" />
+	<div style="text-align: center;">
+		<input type="hidden" name="selected_dept" value="{{ selected_dept }}" />
+		<input type="hidden" name="selected_cour" value="{{ selected_cour }}" />
+		
+		<div style="background-color: #3043FF; color: #F0F0F0#FF4040; padding:4px; margin-bottom: 4px;">
+			Do you wish to import data from {{ selected_dept }}{{ selected_cour }}?<br/>
+			This will overwrite any basic class and section information.
+		</div>
+		<input type="submit" name="result" value="Yes" />
+		<input type="submit" name="result" value="No" />
+	</div>
+{% endblock %}

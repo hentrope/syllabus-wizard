@@ -1,0 +1,143 @@
+{% if standalone %}
+	{% extends "public.html" %}
+
+	{% block head %}
+		<title>{{ course.dept }} {{ course.num }}: {{ course_title }}</title>
+		<link rel="stylesheet" type="text/css" href="{{ uri_for('static', path='syllabus.css') }}" />
+	{% endblock %}
+{% endif %}
+
+{% block content %}
+	<h1><span class="id">{{ course.dept }} {{ course.num }}</span>: <span class="title">{{ course_title }}</span> <span class="term">{{ term_string }}</span></h1>
+
+	<table id="contact">
+		<tr>
+			<th>Instructor</th>
+			<th>Class</th>
+			<th>Office</th>
+		</tr>
+		<tr>
+			<td class="instructor">
+				<div class="name">{{ instructor.name }}</div>
+				<div class="email">{{ instructor.email }}</div>
+			</td>
+			<td class="class">
+				<span class="id">{{ course.dept.upper() }} {{ course.num }}</span>
+				<span class="room">{{ course_room }}</span><br/>
+				<span class="time">{{ schedule_string }}</span>
+			</td>
+			{% set office = instructor.get_office_user_term(owner.key, term) %}
+			<td class="office">
+				<span class="room">{{ office.room }}</span>
+				<span class="phone">Phone: {{ office.phone }}</span><br/>
+				<span class="time">Office Hours: {{ office.schedule_string }}</span>
+			</td>
+		</tr>
+		{% for sect in sections %}
+		{% set instructor = sect.instructor_instance(owner) %}
+		<tr>
+			<td class="instructor">
+				<div class="name">{{ instructor.name }}</div>
+				<div class="email">{{ instructor.email }}</div>
+			</td>
+			<td class="class">
+				{{ sect.name }}
+				<span class="room">{{ sect.room }}</span><br/>
+				<span class="time">{{ sect.notes|safe }}</span>
+			</td>
+			{% set office = instructor.get_office_term(term) %}
+			<td class="office">
+				<span class="room">{{ office.room }}</span>
+				<span class="phone">Phone: {{ office.phone }}</span><br/>
+				<span class="time">Office Hours: {{ office.schedule_string }}</span>
+			</td>
+		</tr>
+		{% endfor %}
+	</table>
+	<div>Assignments, lecture slides, and grades can be found in D2L: <a href="http://d2l.uwm.edu">http://d2l.uwm.edu</a></div>
+
+	{% if textbooks|length > 0 %}
+	<div id="textbook">
+		<h2>Textbooks</h2>
+		{% for textbook in textbooks %}
+		<div>
+			<span class="title">{{ textbook.title }}</span>,
+			<span class="edition">{{ textbook.edition }}</span>
+			<span class="author">{{ textbook.author }}</span>,
+			<span class="publisher">{{ textbook.publisher }}</span>
+			<span class="year">{{ textbook.year }}</span>,
+			ISBN: <span class="isbn">{{ textbook.isbn }}</span>
+		</div>
+		{% endfor %}
+	</div>
+	{% endif %}
+
+	{% if assessments|length > 0 %}
+	<div id="assessment">
+		<h2>Assessment</h2>
+		<table>
+			{% for assessment in assessments %}
+			<tr>
+				<td class="title">
+					<div class="name">{{ assessment.name }}</div>
+					<div class="percentage">{{ assessment.perc }}%</div>
+				</td>
+				<td class="description">{{ assessment.desc|safe }}</td>
+			</tr>
+			{% endfor %}
+		</table>
+	</div>
+	{% endif %}
+	
+	<table id="grading">
+		<tr>
+		{% for grade in gradescale %}{% if grade.letter|length > 0 %}
+			<td>
+				<div class="name">{{ grade.letter }}</div>
+				<div class="percentage">{{ grade.grademin }}</div>
+			</td>
+		{% endif %}{% endfor %}
+		</tr>
+	</table>
+	
+	{% if policies|length > 0 %}
+	<div id="policies">
+		{% for policy in policies %}
+		<div class="policy">
+			<h2>{{ policy.title }}</h2>
+			<div class="description">{{ policy.desc|safe }}</div>
+		</div>
+		{% endfor %}
+	</div>
+	{% endif %}
+	
+	<div id="calendar">
+		<span class="notes">{{ calendar.notes }}</span>
+		<table>
+			<tr>
+				<th>{% if calendar.weekly %}Week of{% else %}Day{% endif %}</th>
+				<th>Reading</th>
+				<th>Topics</th>
+			</tr>
+			{% for date, reading, topic in calendar.entries_list() %}
+			<tr>
+				<td class="date">{{ date.month }}/{{ date.day }}</td>
+				<td class="reading">{{ reading|safe }}</td>
+				<td class="topic">{{ topic|safe }}</td>
+			</tr>
+			{% endfor %}
+			{% if calendar.final_desc|length > 0 %}
+			<tr>
+				<td class="date">{{ calendar.final.month }}/{{ calendar.final.day }}</td>
+				<td class="topic" colspan="2">{{ calendar.final_desc|safe }}</td>
+			</tr>
+			{% endif %}
+		</table>
+	</div>
+	
+	{% if standalone %}
+	<div id="return">
+		<a href="{{ list_url }}">Return to {{ term }} Courses</a>
+	</div>
+	{% endif %}
+{% endblock %}

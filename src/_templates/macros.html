@@ -1,0 +1,20 @@
+{% macro monthday_fields(suffix, monthval=1, dayval=0, size=48) -%}
+	<select name="month{{ suffix }}" style="width:{{ size }}%">{% for name in months %}
+		<option value="{{ loop.index }}"{% if loop.index == monthval %} selected="selected"{% endif %}>{{ name }}</option>
+	{% endfor %}</select>
+	<input type="number" name="day{{ suffix }}" value="{% if dayval > 0 %}{{ dayval }}{% endif %}" style="width:{{ size }}%" min="1" max="31" maxlength="2" placeholder="Day" />
+{%- endmacro %}
+
+{% macro semyear_fields(suffix, semval="F", yearval=0, size=48) -%}
+	<select name="sem{{ suffix }}" style="width:{{ size }}%">{% for char, name in semesters.iteritems() %}
+		<option value="{{ char }}"{% if char == semval %} selected="selected"{% endif %}>{{ name }}</option>
+	{% endfor %}</select>
+	<input type="number" name="year{{ suffix }}" value="{% if yearval > 0 %}{{ yearval }}{% endif %}" style="width:{{ size }}%" min="2000" maxlength="4" placeholder="Year (yyyy)" />
+{%- endmacro %}
+
+{% macro instructor_select(suffix, instructors, instval="none", size=100) -%}
+	<select name="instructor{{ suffix }}" style="width:{{ size }}%">
+	{% for iid, instructor in instructors.iteritems() %}
+		<option value="{{ iid }}"{% if instval == iid %} selected="selected"{% endif %}>{{ instructor.name }}</option>
+	{% endfor %}</select>
+{%- endmacro %}

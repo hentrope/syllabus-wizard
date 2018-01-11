@@ -1,0 +1,25 @@
+{% extends "manage.html" %}
+{% from "macros.html" import semyear_fields %}
+
+{% block content %}
+	<form action="" method="post">
+	<h2>Create Syllabus</h2>
+	{% if error|length > 0 %}<div style="text-align:center; color:#E00000; margin-bottom: 8px;">{{ error }}</div>{% endif %}
+	
+	<div class="column-left" style="width:48%; margin-left:5px;">
+		<div class="fill-field"><label>Term:</label><span>
+			{{ semyear_fields("", semval=sem, yearval=year) }}
+		</span></div>
+	</div>
+	
+	<div class="column-right" style="width:48%; margin-right:5px;">
+		<div class="fill-field"><label>Syllabus Name:</label><span>
+			<input type="text" name="name" value="{{ name }}" placeholder="Unique identifier used in URL" required />
+		</span></div>
+	</div>
+	
+	<div style="text-align:right; padding-top:15px; clear:both;">
+		<button type="submit">Create</button>
+	</div>
+	</form>
+{% endblock %}

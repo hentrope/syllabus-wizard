@@ -1,0 +1,33 @@
+{% extends "manage.html" %}
+
+{% block title %}Edit Syllabus{% endblock %}
+
+{% block content %}
+	<form action="" method="post">
+	<div style="margin-top:1px">
+		<input type="hidden" name="from" value="{{ step }}" />
+		<table width="100%"><tr>
+			<td style="width:15%; text-align:left;"><button type="submit" formaction="{{ uri_for("edit-syllabus", term=term, name=name, step=step-1) }}">&lt;--</button></td>
+			<td style="text-align:center;">
+				<select name="jumpstep">
+				{% for jstep in step_list %}{% if loop.index > 1 %}
+					<option value="{{ loop.index-1 }}"{% if loop.index-1 == step %} selected="selected"{% endif %}>{{ loop.index-1 }}. {{ jstep }}</option>
+				{% endif %}{% endfor %}</select>
+				<button type="submit" name="jump" value="true">Go</button>
+			</td>
+			<td style="width:15%; text-align:right;">{% if step < 9 %}<button type="submit" formaction="{{ uri_for("edit-syllabus", term=term, name=name, step=step+1) }}">--&gt;</button>{% endif %}</td>
+		</tr></table>
+	</div>
+	
+	<h2>{{ step_list[step] }}</h2>
+
+	{% block inner_content %}{% endblock %}
+
+	{% if 1 < step < 9 %}
+	<div style="text-align:right; padding-top:15px; clear:both;">
+		{% if 2 <= step <= 5 or step == 7 %}<button type="submit" name="action" value="new">Add New</button>{% endif %}
+		<button type="submit">Save</button>
+	</div>
+	{% endif %}
+	</form>
+{% endblock %}

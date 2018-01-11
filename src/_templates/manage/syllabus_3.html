@@ -1,0 +1,38 @@
+{% extends "manage/syllabus.html" %}
+{% from "macros.html" import instructor_select %}
+
+{% block inner_content %}
+	<table class="aligner">
+		<tr>
+			<th width="30%">Instructor</th>
+			<th width="60%">Class</th>
+			<td></td>
+		</tr>
+	</table>
+	{% for sect in syllabus.sections %}
+	<div class="rborder">
+	<table class="aligner">
+		<tr>
+			<td width="30%">
+				{% if sect.instructor is none %}
+					{{ instructor_select(loop.index, instructors) }}
+				{% else %}
+					{{ instructor_select(loop.index, instructors, instval=sect.instructor.id()|string()) }}
+				{% endif %}<br/>
+				{% if sect.suggestion|length > 0 %}
+					<span style="font-style: italic;">Suggested: {{ sect.suggestion }}</span>
+				{% endif %}
+			</td>
+			<td width="60%">
+				<input type="text" style="width:48%" name="name{{ loop.index }}" value="{{ sect.name }}" placeholder="Class/Section Name" />
+				<input type="text" style="width:48%" name="room{{ loop.index }}" value="{{ sect.room }}" placeholder="Location of Class" /><br/>
+				<input type="text" style="width:98%" name="notes{{ loop.index }}" value="{{ sect.notes }}" placeholder="Meeting Times, Notes, Etc." />
+			</td>
+			<td>
+				<button type="submit" style="width:100%" name="action" value="{{ loop.index }}" tabindex="-1">Delete</button>
+			</td>
+		</tr>
+	</table>
+	</div>
+	{% endfor %}
+{% endblock %}

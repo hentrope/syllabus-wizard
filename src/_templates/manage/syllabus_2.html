@@ -1,0 +1,87 @@
+{% extends "manage/syllabus.html" %}
+{% from "macros.html" import instructor_select %}
+
+{% block inner_content %}
+	<div class="rborder">
+		<table class="aligner">
+			<tr>
+				<td width="50%">
+					<div class="fill-field"><label>Course ID:</label><span>
+						<input type="text" name="dept" value="{{ course.dept }}" placeholder="Department" style="width:47%" />
+						<input type="number" min="0" max="999" name="num" value="{{ course.num }}" placeholder="Course #" style="width:47%" />
+					</span></div>
+				</td>
+				<td>
+					<div class="fill-field"><label>Course Title:</label><span>
+						<input type="text" name="course_title" value="{% if course_title != 'unnamed' %}{{ course_title }}{% endif %}" placeholder="Descriptive Title of Course" />
+					</span></div>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<div class="fill-field"><label>Room:</label><span>
+						<input type="text" size="25" name="room" value="{{ syllabus.room }}" placeholder="Location of Class" />
+					</span></div>
+				</td>
+				<td>
+					<div class="fill-field"><label>Instructor:</label><span>
+						{% if syllabus.instructor is none %}
+							{{ instructor_select("", instructors) }}
+						{% else %}
+							{{ instructor_select("", instructors, instval=syllabus.instructor.id()|string()) }}
+						{% endif %}
+					</span></div>
+				</td>
+			</tr>
+			{% if syllabus.suggestion|length > 0 %}
+			<tr>
+				<td></td>
+				<td style="padding-top: 0px; font-style: italic;">
+					Suggested: {{ syllabus.suggestion }}
+				</td>
+			</tr>
+			{% endif %}
+		</table>
+	</div>
+	
+	<div>
+		<td style="padding-top: 12px"><label style="font-size:1.2em">Class Sessions:</label></td>
+	</div>
+	
+	{% for t in meeting_times %}
+	<div class="rborder">
+		<table class="aligner">
+			<tr>
+				<td style="width:30%; overflow:hidden">
+					<div class="fill-field"><label>Day of Week:</label><span>
+						<select name="day{{ loop.index }}">
+						{% for wd in weekdays %}
+							<option value="{{ loop.index-1 }}"{% if t.weekday == loop.index-1 %} selected="true"{% endif %}>{{ wd }}</option>
+						{% endfor %}
+						</select>
+					</span></div>
+				</td>
+				<td style="width:30%; overflow:hidden">
+					<label>Start:</label><span>
+						<input type="number" name="starth{{ loop.index }}" min="1" max="12" maxlength="2" value="{{ t.get_start_hour_12h() }}" size="2"> :
+						<input type="number" name="startm{{ loop.index }}" min="0" max="59" maxlength="2" value="{{ t.get_start_min() }}" size="3">
+						<input type="checkbox" name="startp{{ loop.index }}" value="y"{% if t.get_start_pm() %} checked{% endif %}> PM
+					</span>
+				</td>
+				<td style="width:30%; overflow:hidden">
+					<label>Duration:</label><span>
+						<input type="number" name="durh{{ loop.index }}" min="0" max="24" maxlength="2" value="{{ t.get_dur_hour() }}" size="2"> :
+						<input type="number" name="durm{{ loop.index }}" min="0" max="59" maxlength="2" value="{{ t.get_dur_min() }}" size="3">
+					</span>
+				</td>
+				<td style="overflow:hidden">
+					{% if meeting_times|length > 1 %}
+					<button type="image" style="width:100%" name="action" value="{{ loop.index }}" tabindex="-1">Delete</button>
+					{% endif %}
+				</td>
+			</tr>
+		</table>
+	</div>
+	{% endfor %}
+	
+{% endblock %}

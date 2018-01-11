@@ -1,0 +1,31 @@
+{% extends "manage/syllabus.html" %}
+
+{% block head %}
+	<link rel="stylesheet" type="text/css" href="{{ uri_for('static', path='syllabus.css') }}" />
+	{{ super() }}
+{% endblock %}
+
+{% block inner_content %}
+	<div style="text-align:center; margin-bottom: 20px;">
+		The syllabus will not be publicly visible until it has been activated.<br/>
+		{% if syllabus.active %}
+			<input type="submit" name="deactivate" value="Deactivate" />
+		{% else %}
+			<input type="submit" name="activate" value="Activate" />
+		{% endif %}
+	</div>
+	
+	{% if syllabus.active %}
+	{% set url = uri_for("public-view", _full=True, instructor=syllabus.owner.name, term=syllabus.term, name=syllabus.name) %}
+	</form><form name="inner" method="get" action="{{ url }}" target="_blank">
+	<div style="text-align:center; width: 100%;">
+		This syllabus is live at:
+		<input type="text" style="width: 86%" value="{{ url }}" onclick="this.select();" readonly>
+		<input type="submit" style="width: 12%" value="View" />
+	</div>
+	{% endif %}
+	
+	<div class="rborder">
+		{% include 'public/view.html' %}
+	</div>
+{% endblock %}

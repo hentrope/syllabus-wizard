@@ -1,0 +1,66 @@
+{% extends "manage.html" %}
+{% from "macros.html" import semyear_fields %}
+
+{% block title %}Profile{% endblock %}
+
+{% block body %}
+	{{ super() }}
+	
+	<style>
+		.fill-field {
+			margin: 6px 0px;
+		}
+		
+		th {
+			text-align: right;
+		}
+		
+		td input {
+			width: 100%;
+		}
+	</style>
+{% endblock %}
+
+{% block content %}
+	<form action="" method="post">
+	<h2>Profile - {{ username }}</h2>
+	{% if error|length > 0 %}<div style="text-align:center; color:#E00000; margin-bottom: 8px;">{{ error }}</div>{% endif %}
+	
+	<div class="column-left rborder">
+		<table width="100%">
+			<tr>
+				<th width="30%"><label>Full Name:</label></th>
+				<td><input type="text" name="name" value="{{ instructor.name }}" /></td>
+			</tr>
+			<tr>
+				<th><label>Email Address:</label></th>
+				<td><input type="email" name="email" value="{{ instructor.email }}" /></td>
+			</tr>
+			<tr><td colspan="2" style="padding-top: 10px">
+				{{ semyear_fields("", size=30) }}
+				<span style="margin-left: auto;"><button type="submit" name="action" value="office">Edit Office Details</button></span>
+			</td></tr>
+		</table>
+	</div>
+	
+	<div class="column-right rborder" style="overflow:hidden">
+		<table width="100%">
+			<tr>
+				<th width="35%"><label>Current Password:</label></th>
+				<td><input type="password" name="oldpass" placeholder="(Only for password change)"/></td>
+			</tr>
+			<tr>
+				<th><label>New Password:</label></th>
+				<td><input type="password" name="newpass1" /></td>
+			</tr>
+			<tr>
+				<th><label>Verify Password:</label></th>
+				<td><input type="password" name="newpass2" /></td>
+			</tr>
+		</table>
+	</div>
+	<div style="clear: both; text-align: right; padding-top: 20px;">
+		<button type="submit">Update</button>
+	</div>
+	</form>
+{% endblock %}
